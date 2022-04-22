@@ -1,33 +1,33 @@
-import React, { useState } from "react";
-import { nanoid } from "nanoid";
-import css from "./Form.module.css";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import { nanoid } from 'nanoid';
+import css from './Form.module.css';
+import PropTypes from 'prop-types';
 const Form = ({ onSubmit }) => {
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
   let nameInputId = nanoid();
   let numberInputId = nanoid();
-  const handleInputChange = (event) => {
+  const handleInputChange = event => {
     const { name, value } = event.currentTarget;
     switch (name) {
-      case "name":
+      case 'name':
         setName(value);
         break;
-      case "number":
+      case 'number':
         setNumber(value);
         break;
       default:
         return;
     }
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     onSubmit(name, number);
     reset();
   };
   const reset = () => {
-    setName("");
-    setNumber("");
+    setName('');
+    setNumber('');
   };
   return (
     <form className={css.form} onSubmit={handleSubmit}>
