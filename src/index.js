@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './components/App';
-import { store, persistor } from '../src/redux/store';
+import { store } from '../src/redux/store';
 import { Provider } from 'react-redux';
 import './index.css';
 ReactDOM.createRoot(document.getElementById('root')).render(
