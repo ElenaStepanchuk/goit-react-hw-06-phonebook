@@ -1,7 +1,6 @@
-import React from "react";
-import css from "./Filter.module.css";
-import PropTypes from "prop-types";
-
+import React from 'react';
+import css from './Filter.module.css';
+import PropTypes from 'prop-types';
 const Filter = ({ onChange, value, id }) => {
   return (
     <label className={css.filter__label} htmlFor={id}>
