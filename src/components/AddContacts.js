@@ -41,11 +41,14 @@ const AddContacts = () => {
     dispatch(filtered(event.currentTarget.value));
   };
   const getFilterName = () => {
+    console.log(filter);
+    console.log(contacts.name);
     const normalizedFilter = filter.toLowerCase();
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
+
   const handleDelContact = contactId => {
     dispatch(remove(contactId));
   };
@@ -60,6 +63,7 @@ const AddContacts = () => {
         value={filter}
         id={filterInputId}
       />
+
       <ContactsList
         contacts={getFilterName()}
         onDelContact={handleDelContact}
