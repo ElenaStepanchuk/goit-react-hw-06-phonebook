@@ -40,6 +40,6 @@ export const store = configureStore({
       },
     }),
 });
-export const { save, add, remove } = contactsSlice.actions;
+export const { add, remove } = contactsSlice.actions;
 export const { filtered } = filterSlice.actions;
 export const persistor = persistStore(store);

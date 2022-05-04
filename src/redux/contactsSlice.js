@@ -8,9 +8,6 @@ export const contactsSlice = createSlice({
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ],
   reducers: {
-    save: (_, action) => {
-      return action.payload;
-    },
     add: (state, action) => {
       return [...state, action.payload];
     },

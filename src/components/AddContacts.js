@@ -1,24 +1,24 @@
 import Form from './Form';
-import React, { useEffect } from 'react';
+// import React, { useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import ContactsList from './ContactsList';
 import Filter from './Filter';
 import { useSelector, useDispatch } from 'react-redux';
-import { save, add, remove, filtered } from '../redux/store.js';
+import { add, remove, filtered } from '../redux/store.js';
 const AddContacts = () => {
   const contacts = useSelector(state => state.allContacts);
   const filter = useSelector(state => state.filterContacts);
   const dispatch = useDispatch();
-  useEffect(() => {
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
-    if (parsedContacts) {
-      dispatch(save(parsedContacts));
-    }
-  }, [dispatch]);
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  // useEffect(() => {
+  //   const contacts = localStorage.getItem('contacts');
+  //   const parsedContacts = JSON.parse(contacts);
+  //   if (parsedContacts) {
+  //     dispatch(save(parsedContacts));
+  //   }
+  // }, [dispatch]);
+  // useEffect(() => {
+  //   window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
 
   const filterInputId = nanoid();
   const formSubmitHandler = (name, number) => {
@@ -39,14 +39,15 @@ const AddContacts = () => {
   };
   const handleFilter = event => {
     dispatch(filtered(event.currentTarget.value));
+    console.log(event.currentTarget.value);
   };
   const getFilterName = () => {
-    console.log(filter);
-    console.log(contacts.name);
+    console.log(contacts);
+    console.log(Object.values(filter).join(''));
     const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
+    return Object.values(contacts).filter(contact => {
+      return contact.name.toLowerCase().includes(normalizedFilter);
+    });
   };
 
   const handleDelContact = contactId => {
