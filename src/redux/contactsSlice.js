@@ -9,10 +9,13 @@ export const contactsSlice = createSlice({
   ],
   reducers: {
     add: (state, action) => {
-      return [...state, action.payload];
+      return [...Object.values(state), action.payload];
     },
     remove: (state, action) => {
-      return state.filter(contact => contact.id !== action.payload);
+      return Object.values(state).filter(
+        contact => contact.id !== action.payload
+      );
     },
   },
 });
+export const { add, remove } = contactsSlice.actions;

@@ -11,11 +11,12 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { contactsSlice } from './contactsSlice';
-import { filterSlice } from './filterSlice';
+// import { filterSlice } from './filterSlice';
 
 const persistConfig = {
-  key: 'root',
+  key: 'contacts',
   storage,
+  blacklist: ['filter'],
 };
 
 const persistedContactsReducer = persistReducer(
@@ -23,15 +24,15 @@ const persistedContactsReducer = persistReducer(
   contactsSlice.reducer
 );
 
-const persistedFilterReducer = persistReducer(
-  persistConfig,
-  filterSlice.reducer
-);
+// const persistedFilterReducer = persistReducer(
+//   persistConfig,
+//   filterSlice.reducer
+// );
 
 export const store = configureStore({
   reducer: {
-    allContacts: persistedContactsReducer,
-    filterContacts: persistedFilterReducer,
+    contacts: persistedContactsReducer,
+    // filter: persistedFilterReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -40,6 +41,4 @@ export const store = configureStore({
       },
     }),
 });
-export const { add, remove } = contactsSlice.actions;
-export const { filtered } = filterSlice.actions;
 export const persistor = persistStore(store);
