@@ -1,7 +1,11 @@
 import React from 'react';
 import css from './Filter.module.css';
 import PropTypes from 'prop-types';
-const Filter = ({ onChange, value, id }) => {
+import { nanoid } from 'nanoid';
+import { useSelector } from 'react-redux';
+const Filter = ({ onChange }) => {
+  const value = useSelector(state => state.filter);
+  const id = nanoid();
   return (
     <label className={css.filter__label} htmlFor={id}>
       Find contacts by name &nbsp;

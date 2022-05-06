@@ -1,7 +1,7 @@
-import React from "react";
-import ContactListItem from "./ContactListItem";
-import css from "./ContactsList.module.css";
-import PropTypes from "prop-types";
+import React from 'react';
+import ContactListItem from './ContactListItem';
+import css from './ContactsList.module.css';
+import PropTypes from 'prop-types';
 const ContactsList = ({ contacts, onDelContact }) => {
   return (
     <ul className={css.contact__list}>
