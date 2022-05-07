@@ -11,17 +11,16 @@ const AddContacts = () => {
   const dispatch = useDispatch();
   const filterInputId = nanoid();
   const formSubmitHandler = (name, number) => {
-    if (contacts) {
-      const addContacts = Object.values(contacts).find(
-        contact => contact.name.toLowerCase() === name.toLowerCase()
-      );
-      if (addContacts) {
-        alert(`${name} is already in contacts.`);
-        return;
-      }
-      dispatch(add({ id: nanoid(), name, number }));
+    const normalizedName = name.toLowerCase();
+    const addContacts = Object.values(contacts).find(contact => {
+      if (contact.name)
+        return contact.name.toLowerCase().includes(normalizedName);
+    });
+    if (addContacts) {
+      alert(`${name} is already in contacts.`);
+      return;
     }
-    return;
+    dispatch(add({ id: nanoid(), name, number }));
   };
   const handleFilter = event => {
     dispatch(filtered(event.currentTarget.value));
