@@ -10,18 +10,19 @@ const AddContacts = () => {
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
   const filterInputId = nanoid();
-
   const formSubmitHandler = (name, number) => {
-    if (
-      Object.values(contacts).includes(
-        contact => contact.name.toLowerCase() !== name.toLowerCase()
-      )
-    ) {
-      return alert(`${name} is already in contacts.`);
+    if (contacts) {
+      const addContacts = Object.values(contacts).find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      );
+      if (addContacts) {
+        alert(`${name} is already in contacts.`);
+        return;
+      }
+      dispatch(add({ id: nanoid(), name, number }));
     }
-    return dispatch(add({ id: nanoid(), name, number }));
+    return;
   };
-
   const handleFilter = event => {
     dispatch(filtered(event.currentTarget.value));
   };
