@@ -2,11 +2,28 @@ import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import css from './Form.module.css';
 import PropTypes from 'prop-types';
-const Form = ({ onSubmit }) => {
+import { useSelector, useDispatch } from 'react-redux';
+import { add } from '../redux/contactsSlice';
+const Form = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   let nameInputId = nanoid();
   let numberInputId = nanoid();
+  const contacts = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
+  const formSubmitHandler = (name, number) => {
+    const normalizedName = name.toLowerCase();
+    const addContacts = Object.values(contacts).find(contact => {
+      if (contact.name)
+        return contact.name.toLowerCase().includes(normalizedName);
+    });
+    if (addContacts) {
+      alert(`${name} is already in contacts.`);
+      return;
+    }
+    dispatch(add({ id: nanoid(), name, number }));
+  };
+
   const handleInputChange = event => {
     const { name, value } = event.currentTarget;
     switch (name) {
@@ -22,7 +39,7 @@ const Form = ({ onSubmit }) => {
   };
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit(name, number);
+    formSubmitHandler(name, number);
     reset();
   };
   const reset = () => {
